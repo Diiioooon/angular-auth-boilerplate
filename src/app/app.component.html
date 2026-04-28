@@ -1,0 +1,17 @@
+<nav *ngIf="account" class="navbar navbar-expand navbar-dark bg-dark px-3">
+  <a class="navbar-brand" routerLink="/">IPT Angular 21</a>
+  <ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/profile">Profile</a>
+    </li>
+  </ul>
+  <span class="navbar-text text-light">Hello {{account.firstName}}!</span>
+  <button class="btn btn-outline-light btn-sm ms-2" (click)="logout()">Logout</button>
+</nav>
+
+<router-outlet name="subnav"></router-outlet>
+
+<div class="container">
+  <alert></alert>
+  <router-outlet></router-outlet>
+</div>
