@@ -1,0 +1,5 @@
+<h3 class="card-header">Verify Email</h3>
+<div class="card-body">
+  <div *ngIf="emailStatus == EmailStatus.Verifying">Verifying token...</div>
+  <div *ngIf="emailStatus == EmailStatus.Failed">Verification failed. You can request a new password reset link at <a routerLink="../forgot-password">Forgot Password</a>.</div>
+</div>

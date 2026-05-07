@@ -1,0 +1,10 @@
+<div class="card mt-4">
+  <h4 class="card-header">Home</h4>
+  <div class="card-body">
+    <p>You're logged in with Angular 21 & JWT!!</p>
+    <p>Your role is: <strong>{{account.role}}</strong>.</p>
+    <p>This page can be accessed by all authenticated users.</p>
+    <a class="btn btn-primary" routerLink="/profile">Profile</a>
+    <a *ngIf="account.role === 'Admin'" class="btn btn-success" routerLink="/admin">Admin</a>
+  </div>
+</div>
