@@ -49,7 +49,6 @@ export class ResetPasswordComponent implements OnInit {
                 this.token = token;
                 this.tokenStatus = TokenStatus.Valid;
                 this.cdr.detectChanges();
-                this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
             },
             error: () => {
                 this.tokenStatus = TokenStatus.Invalid;
