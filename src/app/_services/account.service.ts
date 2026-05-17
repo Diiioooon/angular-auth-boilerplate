@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, finalize } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, finalize, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { Account } from '@app/_models';
 
@@ -36,20 +36,28 @@ export class AccountService {
 
   logout() {
     if (this.accountValue) {
-        this.http.post<any>(`${baseUrl}/revoke-token`, {}, { withCredentials: true }).subscribe();
-        this.stopRefreshTokenTimer();
+      this.http.post<any>(`${baseUrl}/revoke-token`, {}, { withCredentials: true })
+        .pipe(catchError(() => of(null)))
+        .subscribe();
+      this.stopRefreshTokenTimer();
     }
     this.accountSubject.next(null);
     this.router.navigate(['/account/login']);
-}
+  }
 
   refreshToken() {
     return this.http.post<any>(`${baseUrl}/refresh-token`, {}, { withCredentials: true })
-      .pipe(map(account => {
-        this.accountSubject.next(account);
-        this.startRefreshTokenTimer();
-        return account;
-      }));
+      .pipe(
+        map(account => {
+          this.accountSubject.next(account);
+          this.startRefreshTokenTimer();
+          return account;
+        }),
+        catchError(() => {
+          this.accountSubject.next(null);
+          return of(null);
+        })
+      );
   }
 
   register(account: Account) {
