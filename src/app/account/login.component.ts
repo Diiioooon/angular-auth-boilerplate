@@ -33,9 +33,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.alertService.clear();
-
     if (this.form.invalid) { return; }
-
     this.submitting = true;
     this.accountService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
