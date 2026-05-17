@@ -1,6 +1,6 @@
 <h3 class="card-header">Login</h3>
 <div class="card-body">
-  <alert></alert>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label class="form-label">Email</label>
