@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
-    private ngZone: NgZone
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -46,10 +46,11 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {
-          this.ngZone.run(() => {
+          setTimeout(() => {
             this.alertService.error(error);
             this.submitting = false;
-          });
+            this.cdr.detectChanges();
+          }, 0);
         }
       });
   }
