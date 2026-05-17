@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {
-          this.alertService.error(error);
           this.submitting = false;
-          this.appRef.tick();
+          this.alertService.error(error);
+          Promise.resolve().then(() => this.appRef.tick());
         }
       });
   }
