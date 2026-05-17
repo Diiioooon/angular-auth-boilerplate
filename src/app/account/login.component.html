@@ -1,8 +1,5 @@
 <h3 class="card-header">Login</h3>
 <div class="card-body">
-  <div *ngIf="errorMessage" class="alert alert-dismissible show" role="alert" style="background:transparent; border:none; padding: 0 0 10px 0; color: #333;">
-    {{errorMessage}} <button type="button" class="btn-close" style="float:right" (click)="errorMessage=''"></button>
-  </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label class="form-label">Email</label>
