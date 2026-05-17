@@ -46,12 +46,11 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {
-          setTimeout(() => {
             this.alertService.error(error);
             this.submitting = false;
             this.cdr.detectChanges();
-          });
+          }
         }
-      });
+      );
   }
 }
