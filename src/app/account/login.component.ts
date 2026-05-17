@@ -1,4 +1,4 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private alertService: AlertService,
-    private appRef: ApplicationRef
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -46,9 +45,8 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {
-          this.submitting = false;
           this.alertService.error(error);
-          Promise.resolve().then(() => this.appRef.tick());
+          this.submitting = false;
         }
       });
   }
