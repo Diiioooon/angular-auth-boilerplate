@@ -10,7 +10,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
-      if ([401, 403].includes(err.status) && this.accountService.accountValue) {
+      const isRefreshToken = request.url.includes('refresh-token');
+      if (!isRefreshToken && [401, 403].includes(err.status) && this.accountService.accountValue) {
         this.accountService.logout();
       }
       const error = err.error?.message || err.statusText;
